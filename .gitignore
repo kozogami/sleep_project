@@ -72,7 +72,11 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/aa/*
 
 
-# ignore Unity and VS useless code ==================================
+# Unity
+
+
+# ignore Unity and VS useless code 
+
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
