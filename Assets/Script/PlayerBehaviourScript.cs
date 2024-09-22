@@ -55,7 +55,7 @@ public class NewBehaviourScript : MonoBehaviour
      * FixedUpdate will not effected by frames, the default is 50/frame
      * use this for Update logic.
      */
-    void FixedUpdate()
+    void Update()
     {
 
         if (Input.GetKey(KeyCode.Space) && angle < 1.5)
