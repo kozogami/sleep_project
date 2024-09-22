@@ -6,15 +6,16 @@ public class NewBehaviourScript : MonoBehaviour
 {
 
     // This object could be anything in the game, as shown in the inspector
-    public GameObject musicBox; 
-
+    public GameObject musicBox;
+    public GameObject testSource;
 
     bool music;
-    bool musicPlayed;
+    bool music2;
     float angle;
     float increment;
     Animator animator;
     AudioSource mainAudio; // init audio source
+    AudioSource secondaryAudio;
 
     /** @TOREAD 
      * 
@@ -27,7 +28,7 @@ public class NewBehaviourScript : MonoBehaviour
     void Awake()
     {
         music = false;
-        musicPlayed = false;
+        music2 = false;
         angle = 0;
         increment = 0.5f; // increasement rate
         animator = GetComponent<Animator>();
@@ -45,6 +46,19 @@ public class NewBehaviourScript : MonoBehaviour
 
             Debug.LogError("Error at line -> 33");
         }
+       if (testSource != null) 
+        {
+
+            music2 = true;
+            secondaryAudio = testSource.GetComponent<AudioSource>();
+            Debug.Log("Secondary audio loaded.");
+        }
+        else
+        {
+
+
+            Debug.LogError("Error at line -> 48");
+        } 
     }
 
     /** @TOREAD 
@@ -57,26 +71,20 @@ public class NewBehaviourScript : MonoBehaviour
      */
     void Update()
     {
-
+        //for now I'm just assigning a button to test toggling other music tracks on and off
+        if (Input.GetKeyDown(KeyCode.Alpha1)){
+            secondaryAudio.mute = !secondaryAudio.mute;
+        }
         if (Input.GetKey(KeyCode.Space) && angle < 1.5)
         { // If the spacebar was pressed, and the angle was less than 1.5, do the things listed below
 
 
             angle += increment * 1 * Time.deltaTime; // Angle increment, with a fixed time.
 
-
-            if (music && !musicPlayed)
-            {//Check if the loading is correct. if the music was never played before, them play the music
-
-
-                musicPlayed = true;
-                mainAudio.Play();
-
-            } else { // else unpause to continue to play
-
-
-                mainAudio.UnPause();
-            }
+            //call fadeAudio class to (hopefully) smoothly transition between lower and higher volumes
+            //it takes the arguments (audio source, duration of transition, target volume)
+            StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 1.0f));
+            StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 1.0f));
 
             Debug.Log("Current value: " + angle);
         }
@@ -89,7 +97,8 @@ public class NewBehaviourScript : MonoBehaviour
 
             angle -= 0.1f * 1 * Time.deltaTime;
 
-            if (music) mainAudio.Pause();
+            if (music) StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 0.3f));
+            if (music2) StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 1.0f));
         }
 
         animator.SetFloat("SpacePress", angle);// update the angle to the unity
