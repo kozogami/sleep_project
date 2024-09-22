@@ -97,8 +97,8 @@ public class NewBehaviourScript : MonoBehaviour
 
             angle -= 0.1f * 1 * Time.deltaTime;
 
-            if (music) StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 0.3f));
-            if (music2) StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 1.0f));
+            if (music) StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 0.25f));
+            if (music2) StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 0.25f));
         }
 
         animator.SetFloat("SpacePress", angle);// update the angle to the unity
