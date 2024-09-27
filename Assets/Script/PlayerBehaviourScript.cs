@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+
 
 public class NewBehaviourScript : MonoBehaviour
 {
@@ -9,6 +11,7 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject musicBox;
     public GameObject testSource;
 
+    
     bool music;
     bool music2;
     float angle;
@@ -30,37 +33,31 @@ public class NewBehaviourScript : MonoBehaviour
         music = false;
         music2 = false;
         angle = 0;
-        increment = 0.5f; // increasement rate
+        increment = 5f; // increasement rate
         animator = GetComponent<Animator>();
+        //processBar.SetMax(100);
 
 
-        if (musicBox != null) // If the source is not null, then play gives the value to the main audio.
-        {
-
-            music = true;
-            mainAudio = musicBox.GetComponent<AudioSource>();
-            Debug.Log("Audio loaded.");
-        }
-        else {
 
 
-            Debug.LogError("Error at line -> 33");
-        }
-       if (testSource != null) 
+        if (musicBox != null && testSource != null) // If the source is not null, then play gives the value to the main audio.
         {
 
             music2 = true;
+            music = true;
+
+            mainAudio = musicBox.GetComponent<AudioSource>();
+            Debug.Log("Audio loaded.");
             secondaryAudio = testSource.GetComponent<AudioSource>();
             Debug.Log("Secondary audio loaded.");
         }
         else
         {
 
-
-            Debug.LogError("Error at line -> 48");
-        } 
+            Debug.LogError("Error: Audio not loaded");
+        }
+    
     }
-
     /** @TOREAD 
      * 
      * Update is called once per frame
@@ -75,7 +72,7 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             secondaryAudio.mute = !secondaryAudio.mute;
         }
-        if (Input.GetKey(KeyCode.Space) && angle < 1.5)
+        if (Input.GetKey(KeyCode.Space) && angle < 20)
         { // If the spacebar was pressed, and the angle was less than 1.5, do the things listed below
 
 
@@ -86,7 +83,7 @@ public class NewBehaviourScript : MonoBehaviour
             StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 1.0f));
             StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 1.0f));
 
-            Debug.Log("Current value: " + angle);
+            //Debug.Log("Current value: " + angle);
         }
 
         else if (!Input.GetKey(KeyCode.Space) && angle > 0)
@@ -95,7 +92,7 @@ public class NewBehaviourScript : MonoBehaviour
 
 
 
-            angle -= 0.1f * 1 * Time.deltaTime;
+            angle -= 0.5f * 1 * Time.deltaTime;
 
             if (music) StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 0.25f));
             if (music2) StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 0.25f));
