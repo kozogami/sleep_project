@@ -40,7 +40,7 @@ public class correctAreaMoving : MonoBehaviour
             timeSinceLastMove = 0f;
 
             
-            double nextMoveDis = random.NextDouble() * (4 - (-4)) + (-4);
+            double nextMoveDis = random.NextDouble() * (2 - (-2)) + (-2);
 
 
 

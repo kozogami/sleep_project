@@ -33,7 +33,7 @@ public class NewBehaviourScript : MonoBehaviour
         music = false;
         music2 = false;
         angle = 0;
-        increment = 5f; // increasement rate
+        increment = 10f; // increasement rate
         animator = GetComponent<Animator>();
         //processBar.SetMax(100);
 
@@ -72,7 +72,7 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             secondaryAudio.mute = !secondaryAudio.mute;
         }
-        if (Input.GetKey(KeyCode.Space) && angle < 20)
+        if (Input.GetKey(KeyCode.Space) && angle < 115)
         { // If the spacebar was pressed, and the angle was less than 1.5, do the things listed below
 
 
@@ -92,13 +92,13 @@ public class NewBehaviourScript : MonoBehaviour
 
 
 
-            angle -= 0.5f * 1 * Time.deltaTime;
+            angle -= increment * 1 * Time.deltaTime;
 
             if (music) StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 0.25f));
             if (music2) StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 0.25f));
         }
 
-        animator.SetFloat("SpacePress", angle);// update the angle to the unity
+        animator.SetFloat("Position", angle);// update the angle to the unity
 
 
 
