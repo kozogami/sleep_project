@@ -16,43 +16,22 @@ public class ProcessBar : MonoBehaviour
     public float gameprogess;
     public float gameprogessSwitch;
 
-    private float lastValue;
-    private float countDown; // in frame
     private float increment;
 
-
-
-/*    public GameObject lightObject0;
-    public GameObject lightObject1;
-    public GameObject lightObject2;
-    public GameObject lightObject3;
-    public GameObject lightObject4;
-
-
-    SpriteRenderer lightRenderer0;
-    SpriteRenderer lightRenderer1;
-    SpriteRenderer lightRenderer2;
-    SpriteRenderer lightRenderer3;
-    SpriteRenderer lightRenderer4;*/
 
 
     void Awake()
     {
         slider.maxValue = 100;
         slider.value = 0;
-        lastValue = 0;
-        countDown = 300;
+
         gameprogess = 0;
         gameprogessSwitch = 0;
 
 
         increment = 8.5f;
 
-        /*        lightRenderer0 = lightObject0.GetComponent<SpriteRenderer>();
-                lightRenderer1 = lightObject1.GetComponent<SpriteRenderer>();
-                lightRenderer2 = lightObject2.GetComponent<SpriteRenderer>();
-                lightRenderer3 = lightObject3.GetComponent<SpriteRenderer>();
-                lightRenderer4 = lightObject4.GetComponent<SpriteRenderer>();*/
+
 
 
         if (slider != null)
@@ -85,71 +64,6 @@ public class ProcessBar : MonoBehaviour
         }
 
 
-
-        /*        if (lastValue < slider.value) { 
-
-                    lastValue = slider.value;
-                    countDown = 300;
-
-                } 
-                else if (slider.value == lastValue && countDown > 0) {
-
-                    countDown--;
-                }
-                else if (slider.value == lastValue && countDown == 0 && slider.value >= gameprogess)
-                {
-
-                    slider.value -= 0.05f;
-                    lastValue = slider.value;
-                }*/
-
-
-
-        // turn off the light
-
-        /*        gameprogessSwitch = gameprogess % 20;
-                Debug.Log("gameProgess Switch: " + gameprogessSwitch + "---- gameProgess: " + gameprogess);
-
-        */
-        /*        if (gameprogessSwitch > 1 && gameprogessSwitch < 2) {
-
-                    if (lightRenderer0 != null)
-                    {
-                        lightRenderer0.enabled = false;
-                    }
-                }
-
-                else if (gameprogessSwitch > 2 && gameprogessSwitch < 3)
-                {
-                    if (lightRenderer1 != null)
-                    {
-                        lightRenderer1.enabled = false;
-                    }
-                }
-
-                else if (gameprogessSwitch > 3 && gameprogessSwitch < 4)
-                {
-                    if (lightRenderer2 != null)
-                    {
-                        lightRenderer2.enabled = false;
-                    }
-                }
-
-                else if (gameprogessSwitch > 4 && gameprogessSwitch < 5)
-                {
-                    if (lightRenderer3 != null)
-                    {
-                        lightRenderer3.enabled = false;
-                    }
-                }
-
-                else if (gameprogessSwitch > 5 && gameprogessSwitch < 6)
-                {
-                    if (lightRenderer4 != null)
-                    {
-                        lightRenderer4.enabled = false;
-                    }
-                }*/
 
 
     }
