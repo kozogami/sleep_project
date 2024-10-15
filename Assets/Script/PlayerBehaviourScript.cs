@@ -72,7 +72,7 @@ public class NewBehaviourScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             secondaryAudio.mute = !secondaryAudio.mute;
         }
-        if (Input.GetKey(KeyCode.Space) && angle < 115)
+        if (Input.GetKey(KeyCode.Space) && angle < 120)
         { // If the spacebar was pressed, and the angle was less than 1.5, do the things listed below
 
 
