@@ -105,7 +105,7 @@ public class NewBehaviourScript : MonoBehaviour
         animator.SetFloat("Position", angle);// update the angle to the unity
 
 
-        if (locker.activeInHierarchy == false)
+        if (!locker.activeInHierarchy)
         {
             musicBox.SetActive(true);
             testSource.SetActive(true);

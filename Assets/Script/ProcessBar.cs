@@ -8,6 +8,7 @@ public class TopLight : MonoBehaviour
 
     public UnityEngine.UI.Slider thatSlider;
     public UnityEngine.UI.Slider thisSlider;
+    public GameObject EndScreen;
 
 
     public GameObject[] lightObjects;
@@ -23,6 +24,7 @@ public class TopLight : MonoBehaviour
 
 
         increment = 7f;
+
 
 
         lightRenderer = new SpriteRenderer[8];
@@ -78,6 +80,9 @@ public class TopLight : MonoBehaviour
 
     public void Pause()
     {
+        EndScreen.SetActive(true);
+
+
         Time.timeScale = 0.3f;
         AudioListener.pause = true;  // stop Audio
     }

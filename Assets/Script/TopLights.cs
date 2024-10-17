@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
@@ -70,11 +71,18 @@ public class ProcessBar : MonoBehaviour
 
         if (!isStarted && Input.GetKey(KeyCode.Space)) {
 
-            startPanel.SetActive(false);
-            isStarted = true;
+            StartCoroutine(moveUpAndDelete());
         }
 
     }
+    IEnumerator moveUpAndDelete()
+    {
+        startPanel.transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * 15, 0.1f);
+        yield return new WaitForSeconds(2);
 
 
+        startPanel.SetActive(false);
+        isStarted = true;
+
+    }
 }

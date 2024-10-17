@@ -51,7 +51,7 @@ public class LightControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (locker.activeInHierarchy == false)
+        if (!locker.activeInHierarchy)
         {
             timer += Time.deltaTime;
 
