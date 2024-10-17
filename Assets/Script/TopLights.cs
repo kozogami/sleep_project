@@ -1,11 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 
 public class ProcessBar : MonoBehaviour
@@ -21,6 +14,7 @@ public class ProcessBar : MonoBehaviour
 
 
     public GameObject startPanel;
+    public GameObject endPanel;
 
 
 
@@ -53,6 +47,11 @@ public class ProcessBar : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (endPanel.activeInHierarchy) {
+            isStarted = false;
+            return;
+        }
+
 
         if (Input.GetKey(KeyCode.Space) && isStarted){
 
@@ -71,18 +70,12 @@ public class ProcessBar : MonoBehaviour
 
         if (!isStarted && Input.GetKey(KeyCode.Space)) {
 
-            StartCoroutine(moveUpAndDelete());
+
+            startPanel.SetActive(false);
+            isStarted = true;
+
         }
 
     }
-    IEnumerator moveUpAndDelete()
-    {
-        startPanel.transform.position = Vector3.Lerp(transform.position, transform.position + Vector3.up * 15, 0.1f);
-        yield return new WaitForSeconds(2);
 
-
-        startPanel.SetActive(false);
-        isStarted = true;
-
-    }
 }

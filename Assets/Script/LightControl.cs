@@ -15,6 +15,7 @@ public class LightControl : MonoBehaviour
     public GameObject lightObject7;
     public GameObject lightObject8;
     public GameObject locker;
+    public GameObject endLock;
 
     private System.Random random;
     public int randomNumber;
@@ -51,6 +52,18 @@ public class LightControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if (endLock.activeInHierarchy && isOn) {
+
+            for (int i = 0; i < lightRenderer.Length; i++)
+                lightRenderer[i].enabled = false;
+
+        }else if (endLock.activeInHierarchy) {
+
+            return;
+        }
+
+
         if (!locker.activeInHierarchy)
         {
             timer += Time.deltaTime;

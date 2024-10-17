@@ -14,6 +14,7 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject LightControl;
     public GameObject LightControlF;
     public GameObject locker;
+    public GameObject endLock;
 
 
     bool music;
@@ -70,6 +71,29 @@ public class NewBehaviourScript : MonoBehaviour
      */
     void Update()
     {
+
+
+        if (!locker.activeInHierarchy)
+        {
+            musicBox.SetActive(true);
+            testSource.SetActive(true);
+            cuteMusicBox.SetActive(false);
+            LightControl.SetActive(true);
+            LightControlF.SetActive(false);
+
+        }
+        else if (endLock.activeInHierarchy)
+        {
+
+            LightControl.SetActive(false);
+            LightControlF.SetActive(true);
+            return;
+        }
+
+
+
+
+
         //Debug.Log("Locker = " + locker.activeInHierarchy);
 
         //for now I'm just assigning a button to test toggling other music tracks on and off
@@ -105,14 +129,6 @@ public class NewBehaviourScript : MonoBehaviour
         animator.SetFloat("Position", angle);// update the angle to the unity
 
 
-        if (!locker.activeInHierarchy)
-        {
-            musicBox.SetActive(true);
-            testSource.SetActive(true);
-            cuteMusicBox.SetActive(false);
-            LightControl.SetActive(true);
-            LightControlF.SetActive(false);
-        }
 
     }
 }

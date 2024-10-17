@@ -80,10 +80,11 @@ public class TopLight : MonoBehaviour
 
     public void Pause()
     {
+        thatSlider.value = 80;
         EndScreen.SetActive(true);
 
 
-        Time.timeScale = 0.3f;
+        //Time.timeScale = 0.3f;
         AudioListener.pause = true;  // stop Audio
     }
 
