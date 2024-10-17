@@ -14,11 +14,15 @@ public class LightControl : MonoBehaviour
     public GameObject lightObject6;
     public GameObject lightObject7;
     public GameObject lightObject8;
+    public GameObject locker;
 
     private System.Random random;
-    int randomNumber;
+    public int randomNumber;
 
     SpriteRenderer[] lightRenderer;
+
+
+    public bool isOn = false;
 
     private float timer = 0f;
     public float waitTime = 10f;
@@ -27,9 +31,9 @@ public class LightControl : MonoBehaviour
     void Awake()
     {
         random = new System.Random();
-        randomNumber = 8;
+        randomNumber = 0;
 
-        lightRenderer = new SpriteRenderer[randomNumber];
+        lightRenderer = new SpriteRenderer[8];
 
 
         lightRenderer[0] = lightObject1.GetComponent<SpriteRenderer>();
@@ -47,21 +51,24 @@ public class LightControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        timer += Time.deltaTime;
-
-
-        if (timer >= waitTime)
+        if (locker.activeInHierarchy == false)
         {
+            timer += Time.deltaTime;
 
-            randomNumber = random.Next(1, 9);
-            Debug.Log("Light Switch: " + randomNumber);
 
-            StartCoroutine(ControlLights(randomNumber));
+            if (timer >= waitTime)
+            {
+                isOn = true;
+                //Debug.Log("Light " + randomNumber + " is ON");
 
-            timer = 0f;
+                randomNumber = random.Next(1, 9);
+                StartCoroutine(ControlLights(randomNumber));
+
+                timer = 0f;
+                isOn = false;
+                //Debug.Log("Light " + randomNumber + " is OFF");
+            }
         }
-
     }
 
 
@@ -69,20 +76,37 @@ public class LightControl : MonoBehaviour
     IEnumerator ControlLights(int randomNumber)
     {
 
-        Debug.Log("Light Switch: " + randomNumber);
+        //Debug.Log("Light Switch: " + randomNumber);
 
 
         Renderer selectedLight = lightRenderer[randomNumber - 1];
         if (selectedLight != null)
         {
             selectedLight.enabled = true;
-            Debug.Log("Light " + randomNumber + " is ON");
+
+            //Debug.Log("Light " + randomNumber + " is ON");
 
 
             yield return new WaitForSeconds(10);
             selectedLight.enabled = false;
-            Debug.Log("Light " + randomNumber + " is OFF");
+            //Debug.Log("Light " + randomNumber + " is OFF");
         }
 
     }
+
+
+    public int getRandomNumber() {
+
+        return randomNumber;
+
+    }
+
+    public bool IsLightOn()
+    {
+
+        return isOn;
+
+    }
+
+
 }

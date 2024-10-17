@@ -1,72 +1,93 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.UIElements;
 
-
-public class ProcessBar : MonoBehaviour
+public class TopLight : MonoBehaviour
 {
 
-    public UnityEngine.UI.Slider slider;
-    public float currentValue;
-    public float maxValue;
-    public float gameprogess;
-    public float gameprogessSwitch;
+    public UnityEngine.UI.Slider thatSlider;
+    public UnityEngine.UI.Slider thisSlider;
 
+
+    public GameObject[] lightObjects;
+    private SpriteRenderer[] lightRenderer;
+
+
+    
     private float increment;
-
-
+    private float lightPos;
 
     void Awake()
     {
-        slider.maxValue = 100;
-        slider.value = 0;
-
-        gameprogess = 0;
-        gameprogessSwitch = 0;
 
 
-        increment = 8.5f;
+        increment = 7f;
 
 
+        lightRenderer = new SpriteRenderer[8];
+        for (int i = 0; i < lightObjects.Length; i++) {
+            lightRenderer[i] = lightObjects[i].GetComponent<SpriteRenderer>();
+        }
 
 
-        if (slider != null)
+        if (thatSlider != null && thisSlider != null)
         {
 
-            Debug.Log("Slider in place.");
+            Debug.Log("ProcessBar loaded.");
         }
         else
         {
 
-            Debug.LogError("Error: Process Bar");
+            Debug.LogError("Error: ProcessBar not loaded");
         }
+
     }
 
-    private void FixedUpdate()
+    void Update()
     {
+        if (thisSlider.value >= 79.8f) {
 
-
-        if (Input.GetKey(KeyCode.Space)){
-
-            slider.value += increment * 1 * Time.deltaTime;
-
+            Pause();
         }
 
-        else if (!Input.GetKey(KeyCode.Space) && slider.value > 0)
+
+
+        for (int i = 0; i < lightObjects.Length; i++)
         {
-
-            slider.value -= increment * 1 * Time.deltaTime;
-
+        
+            if (lightRenderer[i].isVisible)
+            {
+                lightPos = i + 1;
+                break;
+            }
         }
 
 
+        if ((thatSlider.value >= (lightPos * 10 - 10) + 0.1f) && thatSlider.value < lightPos * 10)
+        {
+            thisSlider.value += increment * Time.deltaTime;
+        }
 
+        //Debug.Log("lightPos = "+ lightPos + " thatSlider.value = " + thatSlider.value);
+        lightPos = 0;
 
     }
+
+
+
+    public void Pause()
+    {
+        Time.timeScale = 0.3f;
+        AudioListener.pause = true;  // stop Audio
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f;
+        AudioListener.pause = false;  // start Audio
+    }
+
 
 
 

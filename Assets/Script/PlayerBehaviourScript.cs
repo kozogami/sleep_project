@@ -10,8 +10,12 @@ public class NewBehaviourScript : MonoBehaviour
     // This object could be anything in the game, as shown in the inspector
     public GameObject musicBox;
     public GameObject testSource;
+    public GameObject cuteMusicBox;
+    public GameObject LightControl;
+    public GameObject LightControlF;
+    public GameObject locker;
 
-    
+
     bool music;
     bool music2;
     float angle;
@@ -36,8 +40,6 @@ public class NewBehaviourScript : MonoBehaviour
         increment = 10f; // increasement rate
         animator = GetComponent<Animator>();
         //processBar.SetMax(100);
-
-
 
 
         if (musicBox != null && testSource != null) // If the source is not null, then play gives the value to the main audio.
@@ -68,6 +70,8 @@ public class NewBehaviourScript : MonoBehaviour
      */
     void Update()
     {
+        //Debug.Log("Locker = " + locker.activeInHierarchy);
+
         //for now I'm just assigning a button to test toggling other music tracks on and off
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             secondaryAudio.mute = !secondaryAudio.mute;
@@ -101,6 +105,14 @@ public class NewBehaviourScript : MonoBehaviour
         animator.SetFloat("Position", angle);// update the angle to the unity
 
 
+        if (locker.activeInHierarchy == false)
+        {
+            musicBox.SetActive(true);
+            testSource.SetActive(true);
+            cuteMusicBox.SetActive(false);
+            LightControl.SetActive(true);
+            LightControlF.SetActive(false);
+        }
 
     }
 }
