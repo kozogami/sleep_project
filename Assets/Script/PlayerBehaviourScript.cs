@@ -114,7 +114,7 @@ public class NewBehaviourScript : MonoBehaviour
             //Debug.Log("Current value: " + angle);
         }
 
-        else if (!Input.GetKey(KeyCode.Space) && angle > 0)
+        else if (!Input.GetKey(KeyCode.Space) && angle > 0 && !endLock.activeInHierarchy)
         { //Make sure the angle does not go negative, and pause the music when the spacebar is not being pressed
 
 

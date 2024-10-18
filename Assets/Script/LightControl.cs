@@ -23,8 +23,8 @@ public class LightControl : MonoBehaviour
     SpriteRenderer[] lightRenderer;
 
 
-    public bool isOn = false;
-
+    private bool isOn;
+    private bool stopTheLoop;
     private float timer = 0f;
     public float waitTime = 10f;
 
@@ -36,6 +36,8 @@ public class LightControl : MonoBehaviour
 
         lightRenderer = new SpriteRenderer[8];
 
+        isOn = false;
+        stopTheLoop = true;
 
         lightRenderer[0] = lightObject1.GetComponent<SpriteRenderer>();
         lightRenderer[1] = lightObject2.GetComponent<SpriteRenderer>();
@@ -53,12 +55,15 @@ public class LightControl : MonoBehaviour
     void Update()
     {
 
-        if (endLock.activeInHierarchy && isOn) {
+        if (endLock.activeInHierarchy && stopTheLoop) {
 
+            Debug.Log("Act--------------------------");
             for (int i = 0; i < lightRenderer.Length; i++)
                 lightRenderer[i].enabled = false;
 
-        }else if (endLock.activeInHierarchy) {
+            stopTheLoop = false;
+
+        }else if (endLock.activeInHierarchy && !stopTheLoop) {
 
             return;
         }
