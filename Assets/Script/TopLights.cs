@@ -17,7 +17,9 @@ public class ProcessBar : MonoBehaviour
 
     public GameObject startPanel;
     public GameObject endPanel;
-    public SpriteRenderer[] lightRenderer;
+
+    public GameObject[] lightObjects;
+    private SpriteRenderer[] lightRenderer;
 
     void Awake()
     {
@@ -42,6 +44,11 @@ public class ProcessBar : MonoBehaviour
         {
 
             Debug.LogError("Error: Process Bar");
+        }
+
+        lightRenderer = new SpriteRenderer[24];
+        for (int i = 0; i < lightRenderer.Length; i++) {
+            lightRenderer[i] = lightObjects[i].GetComponent<SpriteRenderer>();
         }
 
 
@@ -70,17 +77,15 @@ public class ProcessBar : MonoBehaviour
 
         }
 
-        if (isStarted && slider.value > 0.3f) {
 
+        if (isStarted && slider.value > 0.3f)
+        {
+            dot = Mathf.Clamp(Mathf.FloorToInt(slider.value / 80f * 24f), 0, lightRenderer.Length - 1);
 
-            dot = Mathf.FloorToInt(slider.value / 80f * 24f);
+            lightRenderer[dot].color = new Color(1f, 1f, 1f, 1f);
 
-            lightRenderer[dot].color = new Color(1f, 1f, 1f, 1.0f);
-
-
+           
         }
-
-
 
 
 
