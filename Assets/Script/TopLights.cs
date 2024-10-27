@@ -8,7 +8,7 @@ public class ProcessBar : MonoBehaviour
     public UnityEngine.UI.Slider slider;
 
 
-    int dot;
+    private int dot;
     public float gameprogess;
     public float gameprogessSwitch;
     private float increment;
@@ -26,7 +26,7 @@ public class ProcessBar : MonoBehaviour
         dot = 0;
         slider.maxValue = 80;
         slider.value = 0;
-        increment = 7f;
+        increment = 7f;  // slider increas speed ***
 
         gameprogess = 0;
         gameprogessSwitch = 0;
@@ -80,10 +80,10 @@ public class ProcessBar : MonoBehaviour
 
         if (isStarted && slider.value > 0.3f)
         {
-            dot = Mathf.Clamp(Mathf.FloorToInt(slider.value / 80f * 24f), 0, lightRenderer.Length - 1);
+            dot = Mathf.Clamp(Mathf.FloorToInt(slider.value / 80f * 24f), 0, 23);
 
             lightRenderer[dot].color = new Color(1f, 1f, 1f, 1f);
-
+            Debug.Log("Dot: " + dot);
            
         }
 

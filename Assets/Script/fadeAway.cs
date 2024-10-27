@@ -1,40 +1,100 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class fadeAway : MonoBehaviour
 {
+    
+    public UnityEngine.UI.Slider slider;
 
-    private new Renderer renderer; 
 
+    public GameObject endPanel;
+    public GameObject[] lightObjects;
+    private SpriteRenderer[] lightRenderer;
+
+    private int dot;
+    private int lastReached;
+    private Color fullLight;
+
+    private float countdownTime = 3f;
+    private float currentTime;
 
     // Start is called before the first frame update
     void Start()
     {
-        renderer = GetComponent<Renderer>();
-        if (renderer == null)
+        dot = 0;
+        lastReached = 0;
+        fullLight = new Color(1f, 1f, 1f, 1f);
+
+
+        lightRenderer = new SpriteRenderer[24];
+        for (int i = 0; i < lightRenderer.Length; i++)
         {
-            Debug.LogError("No Renderer found on this object!");
-            return;
+            lightRenderer[i] = lightObjects[i].GetComponent<SpriteRenderer>();
         }
+
 
 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (renderer.material.color.a >= 0.0f)
-        {
+        if (endPanel.activeInHierarchy) {
 
+            for (int i = 0; i < lightRenderer.Length; i++)
+            {
 
-            Color newColor = renderer.material.color;
-            newColor.a -= 0.0001f;  // 递减 alpha 值
-            renderer.material.color = newColor;  // 重新赋值给材质
+                lightRenderer[i].color = new Color(1.0f, 1.0f, 1.0f, 0f);
 
-            Debug.Log("A: " + renderer.material.color.a);
+            }
+            return;
         }
 
 
+        dot = Mathf.Clamp(Mathf.FloorToInt(slider.value / 80f * 24f), 0, 23);
+
+        if (dot > lastReached)
+        {
+
+            lastReached = dot;
+            currentTime = countdownTime;
+        }
+  
+        
+        
+        if (currentTime > 0)
+        {
+
+            currentTime -= Time.deltaTime;
+          
+        }
+        else
+        {
+            if(lastReached > 0)
+                lastReached--;
+
+
+            currentTime = countdownTime;
+        }
+
+
+        for (int i = 0; i < lastReached + 1; i++) {
+
+            if(lightRenderer[i].color.a > 0 ) {
+
+                lightRenderer[i].color = new Color (1.0f,1.0f,1.0f, lightRenderer[i].color.a - 0.035f);
+
+            } 
+                   
+
+        }
+
+        //Debug.Log("Last: "+ lastReached);
+
+        if(slider.value > 0.3f)
+            lightRenderer[dot].color = fullLight;
+
     }
-    }
+}
