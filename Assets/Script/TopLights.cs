@@ -17,12 +17,11 @@ public class ProcessBar : MonoBehaviour
     private bool isStarted;
 
 
-    public Canvas canvas;
-
     public GameObject startPanel;
     public GameObject endPanel;
 
     public GameObject[] lightObjects;
+    public SpriteRenderer FrontPageRenderer;
     private SpriteRenderer[] lightRenderer;
 
     void Awake()
@@ -98,7 +97,7 @@ public class ProcessBar : MonoBehaviour
 
 
             startPanel.SetActive(false);
-            canvas.enabled = false;
+            FrontPageRenderer.enabled = false;
             isStarted = true;
 
         }
