@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -11,9 +12,12 @@ public class ProcessBar : MonoBehaviour
     private int dot;
     public float gameprogess;
     public float gameprogessSwitch;
+
     private float increment;
     private bool isStarted;
 
+
+    public Canvas canvas;
 
     public GameObject startPanel;
     public GameObject endPanel;
@@ -94,6 +98,7 @@ public class ProcessBar : MonoBehaviour
 
 
             startPanel.SetActive(false);
+            canvas.enabled = false;
             isStarted = true;
 
         }
