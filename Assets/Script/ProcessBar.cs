@@ -8,8 +8,13 @@ public class TopLight : MonoBehaviour
 
     public UnityEngine.UI.Slider thatSlider;
     public UnityEngine.UI.Slider thisSlider;
+    public GameObject objectMask;
+    public GameObject roomMask;
     public GameObject EndScreen;
-
+    public Image roomMaskImage;
+    public Image objectMaskImage;
+    public float roomMaskMaxOpacity;
+    public float objectMaskMaxOpacity;
 
     public GameObject[] lightObjects;
     private SpriteRenderer[] lightRenderer;
@@ -25,6 +30,8 @@ public class TopLight : MonoBehaviour
 
         increment = 7f;
 
+        roomMaskImage = roomMask.GetComponent<Image>();
+        objectMaskImage = objectMask.GetComponent<Image>();
 
 
         lightRenderer = new SpriteRenderer[8];
@@ -53,7 +60,22 @@ public class TopLight : MonoBehaviour
             Pause();
         }
 
+        
+        var tempColorRoom = roomMaskImage.color;
+        tempColorRoom.a = thisSlider.value/100;
+        if (tempColorRoom.a > roomMaskMaxOpacity)
+        {
+            tempColorRoom.a = roomMaskMaxOpacity;
+        }
+        roomMaskImage.color = tempColorRoom;
 
+        var tempColorObject = objectMaskImage.color;
+        tempColorObject.a = thisSlider.value/100;
+        if (tempColorObject.a > objectMaskMaxOpacity)
+        {
+            tempColorObject.a = objectMaskMaxOpacity;
+        }
+        objectMaskImage.color = tempColorObject;
 
         for (int i = 0; i < lightObjects.Length; i++)
         {
