@@ -100,10 +100,12 @@ public class NewBehaviourScript : MonoBehaviour
         //Debug.Log("Locker = " + locker.activeInHierarchy);
 
         //for now I'm just assigning a button to test toggling other music tracks on and off
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             secondaryAudio.mute = !secondaryAudio.mute;
         }
-        if (Input.GetKey(KeyCode.Space) && angle < 120)
+        */
+        if (Input.anyKey && angle < 120)
         { // If the spacebar was pressed, and the angle was less than 1.5, do the things listed below
 
 
@@ -118,7 +120,7 @@ public class NewBehaviourScript : MonoBehaviour
             //Debug.Log("Current value: " + angle);
         }
 
-        else if (!Input.GetKey(KeyCode.Space) && angle > 0 && !endLock.activeInHierarchy)
+        else if (!Input.anyKey && angle > 0 && !endLock.activeInHierarchy)
         { //Make sure the angle does not go negative, and pause the music when the spacebar is not being pressed
 
 

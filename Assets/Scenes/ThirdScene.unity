@@ -699,6 +699,7 @@ MonoBehaviour:
   objectMaskImage: {fileID: 0}
   roomMaskMaxOpacity: 0.5
   objectMaskMaxOpacity: 0.4
+  readyForNext: 0
   lightObjects:
   - {fileID: 759701116}
   - {fileID: 1502754257}
@@ -2748,7 +2749,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: If you feel like continuing to the next scene, you may press enter. But
+  m_text: If you feel like continuing to the next scene, you may press any key. But
     feel free to stay for as long as you want.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
