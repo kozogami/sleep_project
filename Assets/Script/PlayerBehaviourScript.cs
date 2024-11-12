@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.UI;
 
 
@@ -15,6 +16,8 @@ public class NewBehaviourScript : MonoBehaviour
     public GameObject LightControlF;
     public GameObject locker;
     public GameObject endLock;
+    public AudioMixer mixer;
+    
 
 
     bool music;
@@ -97,24 +100,27 @@ public class NewBehaviourScript : MonoBehaviour
         //Debug.Log("Locker = " + locker.activeInHierarchy);
 
         //for now I'm just assigning a button to test toggling other music tracks on and off
+        /*
         if (Input.GetKeyDown(KeyCode.Alpha1)){
             secondaryAudio.mute = !secondaryAudio.mute;
         }
-        if (Input.GetKey(KeyCode.Space) && angle < 120)
+        */
+        if (Input.anyKey && angle < 120)
         { // If the spacebar was pressed, and the angle was less than 1.5, do the things listed below
 
 
             angle += increment * 1 * Time.deltaTime; // Angle increment, with a fixed time.
 
-            //call fadeAudio class to (hopefully) smoothly transition between lower and higher volumes
-            //it takes the arguments (audio source, duration of transition, target volume)
-            StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 1.0f));
-            StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 1.0f));
+            //call fadeAudioMixer class to (hopefully) smoothly transition between lower and higher volumes
+            //it takes the arguments (audioMixer, exposedVolumeParameter, duration of transition, target volume)
+            
+            StartCoroutine(FadeMixerGroup.StartFade(mixer, "subVol", 0.75f, 0.1f));
+           
 
             //Debug.Log("Current value: " + angle);
         }
 
-        else if (!Input.GetKey(KeyCode.Space) && angle > 0 && !endLock.activeInHierarchy)
+        else if (!Input.anyKey && angle > 0 && !endLock.activeInHierarchy)
         { //Make sure the angle does not go negative, and pause the music when the spacebar is not being pressed
 
 
@@ -122,8 +128,8 @@ public class NewBehaviourScript : MonoBehaviour
 
             angle -= increment * 1 * Time.deltaTime;
 
-            if (music) StartCoroutine(FadeAudioSource.StartFade(mainAudio, 0.75f, 0.25f));
-            if (music2) StartCoroutine(FadeAudioSource.StartFade(secondaryAudio, 0.75f, 0.25f));
+            if (music2) StartCoroutine(FadeMixerGroup.StartFade(mixer, "subVol", 0.75f, 0.30f));
+
         }
 
         animator.SetFloat("Position", angle);// update the angle to the unity

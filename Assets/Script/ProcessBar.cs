@@ -2,14 +2,22 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TopLight : MonoBehaviour
 {
 
     public UnityEngine.UI.Slider thatSlider;
     public UnityEngine.UI.Slider thisSlider;
+    public GameObject objectMask;
+    public GameObject roomMask;
     public GameObject EndScreen;
-
+    public Image roomMaskImage;
+    public Image objectMaskImage;
+    public float roomMaskMaxOpacity;
+    public float objectMaskMaxOpacity;
+    public bool readyForNext;
+    private int currentSceneIndex;
 
     public GameObject[] lightObjects;
     private SpriteRenderer[] lightRenderer;
@@ -21,10 +29,12 @@ public class TopLight : MonoBehaviour
 
     void Awake()
     {
-
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         increment = 7f;
 
+        roomMaskImage = roomMask.GetComponent<Image>();
+        objectMaskImage = objectMask.GetComponent<Image>();
 
 
         lightRenderer = new SpriteRenderer[8];
@@ -53,7 +63,22 @@ public class TopLight : MonoBehaviour
             Pause();
         }
 
+        
+        var tempColorRoom = roomMaskImage.color;
+        tempColorRoom.a = thisSlider.value/100;
+        if (tempColorRoom.a > roomMaskMaxOpacity)
+        {
+            tempColorRoom.a = roomMaskMaxOpacity;
+        }
+        roomMaskImage.color = tempColorRoom;
 
+        var tempColorObject = objectMaskImage.color;
+        tempColorObject.a = thisSlider.value/100;
+        if (tempColorObject.a > objectMaskMaxOpacity)
+        {
+            tempColorObject.a = objectMaskMaxOpacity;
+        }
+        objectMaskImage.color = tempColorObject;
 
         for (int i = 0; i < lightObjects.Length; i++)
         {
@@ -74,6 +99,14 @@ public class TopLight : MonoBehaviour
         //Debug.Log("lightPos = "+ lightPos + " thatSlider.value = " + thatSlider.value);
         lightPos = 0;
 
+        if (readyForNext)
+        {
+            if (Input.anyKey)
+            {
+                SceneManager.LoadScene(currentSceneIndex+1);
+            }
+        }
+
     }
 
 
@@ -82,10 +115,11 @@ public class TopLight : MonoBehaviour
     {
         thatSlider.value = 80;
         EndScreen.SetActive(true);
+        readyForNext = true;
 
 
         //Time.timeScale = 0.3f;
-        AudioListener.pause = true;  // stop Audio
+        //AudioListener.pause = true;  // stop Audio
     }
 
     public void ResumeGame()

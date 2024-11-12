@@ -67,13 +67,13 @@ public class ProcessBar : MonoBehaviour
 
 
 
-        if (Input.GetKey(KeyCode.Space) && isStarted){
+        if (Input.anyKey && isStarted){
 
             slider.value += increment * 1 * Time.deltaTime;
 
         }
 
-        else if (!Input.GetKey(KeyCode.Space) && slider.value > 0)
+        else if (!Input.anyKey && slider.value > 0)
         {
 
             slider.value -= increment * 1 * Time.deltaTime;
@@ -93,7 +93,7 @@ public class ProcessBar : MonoBehaviour
 
 
 
-        if (!isStarted && Input.GetKey(KeyCode.Space)) {//unlock the screen
+        if (!isStarted && Input.anyKey) {//unlock the screen
 
 
             startPanel.SetActive(false);
