@@ -101,7 +101,7 @@ public class TopLight : MonoBehaviour
 
         if (readyForNext)
         {
-            if (Input.anyKey)
+            if (Input.anyKeyDown)
             {
                 SceneManager.LoadScene(currentSceneIndex+1);
             }
