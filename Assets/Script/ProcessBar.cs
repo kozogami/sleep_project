@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TopLight : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class TopLight : MonoBehaviour
     public Image objectMaskImage;
     public float roomMaskMaxOpacity;
     public float objectMaskMaxOpacity;
+    public bool readyForNext;
+    private int currentSceneIndex;
 
     public GameObject[] lightObjects;
     private SpriteRenderer[] lightRenderer;
@@ -26,7 +29,7 @@ public class TopLight : MonoBehaviour
 
     void Awake()
     {
-
+        currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
 
         increment = 7f;
 
@@ -96,6 +99,14 @@ public class TopLight : MonoBehaviour
         //Debug.Log("lightPos = "+ lightPos + " thatSlider.value = " + thatSlider.value);
         lightPos = 0;
 
+        if (readyForNext)
+        {
+            if (Input.GetKeyDown("enter") || Input.GetKeyDown("return"))
+            {
+                SceneManager.LoadScene(currentSceneIndex+1);
+            }
+        }
+
     }
 
 
@@ -104,10 +115,11 @@ public class TopLight : MonoBehaviour
     {
         thatSlider.value = 80;
         EndScreen.SetActive(true);
+        readyForNext = true;
 
 
         //Time.timeScale = 0.3f;
-        AudioListener.pause = true;  // stop Audio
+        //AudioListener.pause = true;  // stop Audio
     }
 
     public void ResumeGame()
