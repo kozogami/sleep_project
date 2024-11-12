@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
@@ -11,14 +12,16 @@ public class ProcessBar : MonoBehaviour
     private int dot;
     public float gameprogess;
     public float gameprogessSwitch;
+
     private float increment;
     private bool isStarted;
 
-
+    public GameObject FrontVideo;
     public GameObject startPanel;
     public GameObject endPanel;
 
     public GameObject[] lightObjects;
+
     private SpriteRenderer[] lightRenderer;
 
     void Awake()
@@ -83,7 +86,7 @@ public class ProcessBar : MonoBehaviour
             dot = Mathf.Clamp(Mathf.FloorToInt(slider.value / 80f * 24f), 0, 23);
 
             lightRenderer[dot].color = new Color(1f, 1f, 1f, 1f);
-            Debug.Log("Dot: " + dot);
+            //Debug.Log("Dot: " + dot);
            
         }
 
@@ -94,6 +97,7 @@ public class ProcessBar : MonoBehaviour
 
 
             startPanel.SetActive(false);
+            FrontVideo.SetActive(false);
             isStarted = true;
 
         }
