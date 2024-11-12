@@ -5,22 +5,22 @@ using UnityEngine.Audio;
 using UnityEngine.UI;
 
 
-public class NewBehaviourScript : MonoBehaviour
+public class PlayerControl_PostStart : MonoBehaviour
 {
 
     // This object could be anything in the game, as shown in the inspector
     public GameObject musicBox;
     public GameObject testSource;
-    public GameObject cuteMusicBox;
+    //public GameObject cuteMusicBox;
     public GameObject LightControl;
     public GameObject LightControlF;
-    public GameObject locker;
+    //public GameObject locker;
     public GameObject endLock;
     public AudioMixer mixer;
-    
 
 
-    bool music;
+
+    //bool music;
     bool music2;
     float angle;
     float increment;
@@ -38,7 +38,7 @@ public class NewBehaviourScript : MonoBehaviour
      */
     void Awake()
     {
-        music = false;
+        //music = false;
         music2 = false;
         angle = 0;
         increment = 10f; // increasement rate
@@ -50,7 +50,7 @@ public class NewBehaviourScript : MonoBehaviour
         {
 
             music2 = true;
-            music = true;
+            //music = true;
 
             mainAudio = musicBox.GetComponent<AudioSource>();
             Debug.Log("Audio loaded.");
@@ -62,7 +62,7 @@ public class NewBehaviourScript : MonoBehaviour
 
             Debug.LogError("Error: Audio not loaded");
         }
-    
+
     }
     /** @TOREAD 
      * 
@@ -74,18 +74,12 @@ public class NewBehaviourScript : MonoBehaviour
      */
     void Update()
     {
-
-
-        if (!locker.activeInHierarchy)
-        {
-            musicBox.SetActive(true);
-            testSource.SetActive(true);
-            cuteMusicBox.SetActive(false);
-            LightControl.SetActive(true);
-            LightControlF.SetActive(false);
-
-        }
-        else if (endLock.activeInHierarchy)
+        musicBox.SetActive(true);
+        testSource.SetActive(true);
+        //cuteMusicBox.SetActive(false);
+        LightControl.SetActive(true);
+        LightControlF.SetActive(false);
+        if (endLock.activeInHierarchy)
         {
 
             LightControl.SetActive(false);
@@ -100,7 +94,8 @@ public class NewBehaviourScript : MonoBehaviour
         //Debug.Log("Locker = " + locker.activeInHierarchy);
 
         //for now I'm just assigning a button to test toggling other music tracks on and off
-        if (Input.GetKeyDown(KeyCode.Alpha1)){
+        if (Input.GetKeyDown(KeyCode.Alpha1))
+        {
             secondaryAudio.mute = !secondaryAudio.mute;
         }
         if (Input.GetKey(KeyCode.Space) && angle < 120)
@@ -111,9 +106,9 @@ public class NewBehaviourScript : MonoBehaviour
 
             //call fadeAudioMixer class to (hopefully) smoothly transition between lower and higher volumes
             //it takes the arguments (audioMixer, exposedVolumeParameter, duration of transition, target volume)
-            
+
             StartCoroutine(FadeMixerGroup.StartFade(mixer, "subVol", 0.75f, 0.1f));
-           
+
 
             //Debug.Log("Current value: " + angle);
         }
